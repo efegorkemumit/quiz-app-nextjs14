@@ -5,5 +5,5 @@
   html,
   body,
   :root {
-    @apply bg-slate-500;
+    @apply bg-mycolor-200;
   }
