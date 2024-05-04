@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import React, { useEffect, useState } from 'react'
+import StatCard from './StatCard';
 
 interface QuizProps{
     questions:{
@@ -106,6 +107,31 @@ const Quiz = ({questions,userId}:QuizProps) => {
       setShowResults(true);
       stopTimer();
 
+      fetch("/api/quizresult",{
+        method:"POST",
+        headers:{
+          "Content-Type": "application/json",
+        },
+        body:JSON.stringify({
+          userId: userId,
+          quizScore: results.score,
+          correctAnswers: results.correctAnswers,
+          wrongAnswers: results.wrongAnswers,
+        })
+      }).then((response)=>{
+        if(!response.ok){
+          throw new Error(
+            "Network response was not working fam"
+          );
+          
+        }
+        return response.json();
+      }).then((data)=>{
+        console.log("Quiz", data)
+      }).catch((error)=>{
+        console.error("Error", error)
+      })
+
       ///
 
     }
@@ -177,7 +203,50 @@ const Quiz = ({questions,userId}:QuizProps) => {
        
 
       ):(
-        <div>Result</div>
+        <div className='text-center'>
+          <h3 className='text-white text-3xl font-serif mb-5'>Results</h3>
+
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
+
+            <StatCard
+            title='Percentage'
+            value={`${(results.score/50)*100}%`}
+            />
+
+          <StatCard
+            title='Total Questions'
+            value={questions.length}
+            />
+
+<StatCard
+            title='Total Score'
+            value={results.score}
+            />
+
+<StatCard
+            title='Correct Answers'
+            value={results.correctAnswers}
+            />
+
+
+            <StatCard
+            title='Wrong Answers'
+            value={results.wrongAnswers}
+            />
+
+
+
+          </div>
+
+          <Button 
+          onClick={()=>window.location.reload()}
+          variant="nextquestion" size="xl" className='w-full mt-4'>
+            Restart Quiz
+          </Button>
+
+
+
+        </div>
       )
     
     
