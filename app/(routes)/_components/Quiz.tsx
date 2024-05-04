@@ -28,7 +28,7 @@ const Quiz = ({questions,userId}:QuizProps) => {
   });
 
   const  {question,answers,correctAnswer}  = questions[activeQuestion]
-  const [timeRemaining, setTimeRemaining] = useState(25000);
+  const [timeRemaining, setTimeRemaining] = useState(25);
   const [timerRunning, setTimerRunning] = useState(false);
 
   useEffect(()=>{
@@ -56,6 +56,7 @@ const Quiz = ({questions,userId}:QuizProps) => {
   const handleTimeUp=()=>{
     stopTimer();
     resetTimer();
+    nextQuestion();
 
   }
 
@@ -71,6 +72,43 @@ const Quiz = ({questions,userId}:QuizProps) => {
   ///// event
 
   const onAnswerSelected =(answer:string, idx:number)=>{
+    setChecked(true);
+    setSelectedAnswerIndex(idx);
+    if(answer===correctAnswer){
+      setSelectedAnswer(answer);
+    }else{
+      setSelectedAnswer("")
+    }
+
+  }
+
+  const  nextQuestion=()=>{
+    setSelectedAnswerIndex(null);
+    setChecked(false);
+    resetTimer();
+    startTimer();
+    setResults((prev)=>
+    selectedAnswer ? {
+      ...prev,
+      score:prev.score+5,
+      correctAnswers:prev.correctAnswers+1
+
+    }:{
+      ...prev,
+      wrongAnswers:prev.wrongAnswers+1
+
+    });
+
+    if(activeQuestion !=questions.length-1){
+      setActiveQuestion((prev)=>prev+1);
+    }
+    else{
+      setShowResults(true);
+      stopTimer();
+
+      ///
+
+    }
 
   }
 
@@ -108,7 +146,7 @@ const Quiz = ({questions,userId}:QuizProps) => {
             }
             className={`cursor-pointer mb-5 p-2 py-3 border text-white border-mycolor-500
             rounded-lg hover:bg-mycolor-100 px-4 
-            ${selectedAnswer === idx && "text-white bg-sky-700 font-semibold"}
+            ${selectedAnswerIndex === idx && "text-white hover:bg-sky-700 bg-sky-700 font-semibold"}
           
             `}
             >
@@ -123,6 +161,8 @@ const Quiz = ({questions,userId}:QuizProps) => {
             <Button
             variant="nextquestion"
             size="xl"
+            onClick={nextQuestion}
+            disabled={!checked}
             >
              {activeQuestion === questions.length - 1
                   ? "Finish"
