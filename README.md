@@ -40,15 +40,15 @@
 
 **Timestamps**
 - 00:00 Tanıtım
-- 00:00 Kurulumlar
-- 00:00 Clerk
-- 00:00 DB prisma
-- 00:00 Clerk Webhooks and ngrok
-- 00:00:00 Homepage
-- 00:00:00 Navbar
-- 00:00:00 Sanity
-- 00:00:00 Quiz UI
-- 00:00:00 Quiz Nextquestion
-- 00:00:00 Results
-- 00:00:00 Stats Page
-- 00:00:00 Leaderboards
+- 03:23 Kurulumlar
+- 13:29 Clerk
+- 28:43 DB prisma
+- 38:54 Clerk Webhooks and ngrok
+- 01:03:26 Homepage
+- 01:10:40 Navbar
+- 01:25:13 Sanity
+- 01:30:50 Quiz UI
+- 02:10:42 Quiz Nextquestion
+- 02:18:58 Results
+- 02:38:57 Stats Page
+- 02:43:56 Leaderboards
