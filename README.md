@@ -31,7 +31,7 @@
 ## LINKS
 
 
-- Video Tutorial : Yakında
+- Video Tutorial : https://youtu.be/rtSvsPy2MDg
 
 
 ## Quiz Uygulaması | Quiz App  | Full Stack | Next.js 14, TypeScript, Sanity, Prisma, TailwindCss
